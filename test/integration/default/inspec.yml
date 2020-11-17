@@ -1,0 +1,10 @@
+name: chef_work_environment
+title: InSpec Profile
+maintainer: Patrick Schaumburg
+copyright: tecRacer
+copyright_email: pschaumburg@tecracer.de
+license: All Rights Reserved
+summary: An InSpec Compliance Profile
+version: 0.1.0
+supports:
+  platform: os

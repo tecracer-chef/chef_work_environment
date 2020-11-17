@@ -1,0 +1,31 @@
+---
+driver:
+  name: vagrant
+  require_chef_omnibus: true
+  customize:
+    memory: 1024
+
+provisioner:
+  name: chef_zero
+  product_version: 16
+  channel: stable
+  product_name: chef
+
+client_rb:
+  chef_license: accept
+
+platforms:
+  - name: ubuntu-16.04
+  - name: debian-8
+  - name: debian-9
+  - name: centos-7
+
+verifier:
+  name: inspec
+
+suites:
+  - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
