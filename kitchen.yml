@@ -15,9 +15,6 @@ client_rb:
   chef_license: accept
 
 platforms:
-  - name: ubuntu-16.04
-  - name: debian-8
-  - name: debian-9
   - name: centos-7
 
 verifier:
@@ -25,7 +22,5 @@ verifier:
 
 suites:
   - name: default
-    verifier:
-      inspec_tests:
-        - test/integration/default
-    attributes:
+    run_list:
+      - recipe[chef_work_environment::default]

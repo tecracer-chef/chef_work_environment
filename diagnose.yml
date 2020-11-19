@@ -1,0 +1,370 @@
+---
+timestamp: 2020-11-19 13:31:08 UTC
+kitchen_version: 2.7.2
+instances:
+  default-ubuntu-1804:
+    platform:
+      os_type: unix
+      shell_type: bourne
+    state_file:
+      last_error: Excon::Error::Socket
+    driver:
+      api_retries: 20
+      binds: []
+      cap_add: 
+      cap_drop: 
+      chef_image: chef/chef
+      chef_version: 16.6.14
+      customize:
+        memory: 1024
+      data_image: dokken/kitchen-cache:latest
+      dns: 
+      dns_search: 
+      docker_host_url: unix:///var/run/docker.sock
+      docker_info:
+        ID: ORA2:RCQ5:7U6E:SRF3:SGW4:RZBS:FE4D:HWWP:KLLU:GIX7:A2SY:UV2M
+        Containers: 0
+        ContainersRunning: 0
+        ContainersPaused: 0
+        ContainersStopped: 0
+        Images: 277
+        Driver: overlay2
+        DriverStatus:
+        - - Backing Filesystem
+          - extfs
+        - - Supports d_type
+          - 'true'
+        - - Native Overlay Diff
+          - 'true'
+        SystemStatus: 
+        Plugins:
+          Volume:
+          - local
+          Network:
+          - bridge
+          - host
+          - ipvlan
+          - macvlan
+          - 'null'
+          - overlay
+          Authorization: 
+          Log:
+          - awslogs
+          - fluentd
+          - gcplogs
+          - gelf
+          - journald
+          - json-file
+          - local
+          - logentries
+          - splunk
+          - syslog
+        MemoryLimit: true
+        SwapLimit: true
+        KernelMemory: true
+        KernelMemoryTCP: true
+        CpuCfsPeriod: true
+        CpuCfsQuota: true
+        CPUShares: true
+        CPUSet: true
+        PidsLimit: true
+        IPv4Forwarding: true
+        BridgeNfIptables: true
+        BridgeNfIp6tables: true
+        Debug: true
+        NFd: 40
+        OomKillDisable: true
+        NGoroutines: 47
+        SystemTime: '2020-11-19T13:31:07.883988959Z'
+        LoggingDriver: json-file
+        CgroupDriver: cgroupfs
+        NEventsListener: 3
+        KernelVersion: 5.4.39-linuxkit
+        OperatingSystem: Docker Desktop
+        OSType: linux
+        Architecture: x86_64
+        IndexServerAddress: https://index.docker.io/v1/
+        RegistryConfig:
+          AllowNondistributableArtifactsCIDRs: []
+          AllowNondistributableArtifactsHostnames: []
+          InsecureRegistryCIDRs:
+          - 127.0.0.0/8
+          IndexConfigs:
+            docker.io:
+              Name: docker.io
+              Mirrors: []
+              Secure: true
+              Official: true
+          Mirrors: []
+        NCPU: 6
+        MemTotal: 2083606528
+        GenericResources: 
+        DockerRootDir: "/var/lib/docker"
+        HttpProxy: gateway.docker.internal:3128
+        HttpsProxy: gateway.docker.internal:3129
+        NoProxy: ''
+        Name: docker-desktop
+        Labels: []
+        ExperimentalBuild: false
+        ServerVersion: 19.03.13
+        ClusterStore: ''
+        ClusterAdvertise: ''
+        Runtimes:
+          runc:
+            path: runc
+        DefaultRuntime: runc
+        Swarm:
+          NodeID: ''
+          NodeAddr: ''
+          LocalNodeState: inactive
+          ControlAvailable: false
+          Error: ''
+          RemoteManagers: 
+        LiveRestoreEnabled: false
+        Isolation: ''
+        InitBinary: docker-init
+        ContainerdCommit:
+          ID: 8fba4e9a7d01810a393d5d25a3621dc101981175
+          Expected: 8fba4e9a7d01810a393d5d25a3621dc101981175
+        RuncCommit:
+          ID: dc9208a3303feef5b3839f4323d9beb36df0a9dd
+          Expected: dc9208a3303feef5b3839f4323d9beb36df0a9dd
+        InitCommit:
+          ID: fec3683
+          Expected: fec3683
+        SecurityOptions:
+        - name=seccomp,profile=default
+        ProductLicense: Community Engine
+        Warnings: 
+      entrypoint: 
+      env: 
+      hostname: dokken
+      image: dokken/ubuntu-18.04
+      image_prefix: 
+      intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      kitchen_root: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment"
+      links: 
+      log_level: :info
+      memory_limit: 0
+      name: dokken
+      network_mode: dokken
+      pid_one_command: "/bin/systemd"
+      ports: 
+      pre_create_command: 
+      privileged: true
+      pull_chef_image: true
+      pull_platform_image: true
+      read_timeout: 3600
+      security_opt: 
+      test_base_path: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment/test/integration"
+      tmpfs: {}
+      userns_host: false
+      volumes: 
+      write_timeout: 3600
+    provisioner:
+      always_update_cookbooks: false
+      architecture: 
+      attributes: {}
+      berksfile_path: 
+      channel: stable
+      checksum: 
+      chef_client_path: "/bin/chef-client"
+      chef_license: 
+      chef_omnibus_install_options: 
+      chef_omnibus_url: https://omnitruck.chef.io/install.sh
+      chef_zero_host: 
+      chef_zero_port: 8889
+      client_rb: {}
+      clients_path: 
+      command_prefix: 
+      config_path: 
+      cookbook_files_glob: README.*,VERSION,metadata.{json,rb},attributes.rb,recipe.rb,attributes/**/*,definitions/**/*,files/**/*,libraries/**/*,providers/**/*,recipes/**/*,resources/**/*,templates/**/*,ohai/**/*
+      data_bags_path: 
+      data_path: 
+      debug: 
+      deprecations_as_errors: false
+      download_url: 
+      downloads: {}
+      encrypted_data_bag_secret_key_path: 
+      enforce_idempotency: false
+      environments_path: 
+      ftp_proxy: 
+      http_proxy: 
+      https_proxy: 
+      install_strategy: once
+      json_attributes: true
+      kitchen_root: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment"
+      log_file: 
+      log_level: auto
+      max_retries: 1
+      multiple_converge: 1
+      name: chef_zero
+      named_run_list: {}
+      nodes_path: 
+      platform: 
+      platform_version: 
+      policyfile: 
+      policyfile_path: 
+      product_name: chef
+      product_version: 16
+      profile_ruby: false
+      require_chef_omnibus: true
+      retry_on_exit_code:
+      - 35
+      - 213
+      roles_path: 
+      root_path: "/tmp/kitchen"
+      ruby_bindir: "/embedded/bin"
+      run_list:
+      - recipe[chef_work_environment]
+      sudo: true
+      sudo_command: sudo -E
+      test_base_path: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment/test/integration"
+      wait_for_retry: 30
+    transport:
+      docker_host_url: unix:///var/run/docker.sock
+      docker_info:
+        ID: ORA2:RCQ5:7U6E:SRF3:SGW4:RZBS:FE4D:HWWP:KLLU:GIX7:A2SY:UV2M
+        Containers: 0
+        ContainersRunning: 0
+        ContainersPaused: 0
+        ContainersStopped: 0
+        Images: 277
+        Driver: overlay2
+        DriverStatus:
+        - - Backing Filesystem
+          - extfs
+        - - Supports d_type
+          - 'true'
+        - - Native Overlay Diff
+          - 'true'
+        SystemStatus: 
+        Plugins:
+          Volume:
+          - local
+          Network:
+          - bridge
+          - host
+          - ipvlan
+          - macvlan
+          - 'null'
+          - overlay
+          Authorization: 
+          Log:
+          - awslogs
+          - fluentd
+          - gcplogs
+          - gelf
+          - journald
+          - json-file
+          - local
+          - logentries
+          - splunk
+          - syslog
+        MemoryLimit: true
+        SwapLimit: true
+        KernelMemory: true
+        KernelMemoryTCP: true
+        CpuCfsPeriod: true
+        CpuCfsQuota: true
+        CPUShares: true
+        CPUSet: true
+        PidsLimit: true
+        IPv4Forwarding: true
+        BridgeNfIptables: true
+        BridgeNfIp6tables: true
+        Debug: true
+        NFd: 40
+        OomKillDisable: true
+        NGoroutines: 47
+        SystemTime: '2020-11-19T13:31:08.245108346Z'
+        LoggingDriver: json-file
+        CgroupDriver: cgroupfs
+        NEventsListener: 3
+        KernelVersion: 5.4.39-linuxkit
+        OperatingSystem: Docker Desktop
+        OSType: linux
+        Architecture: x86_64
+        IndexServerAddress: https://index.docker.io/v1/
+        RegistryConfig:
+          AllowNondistributableArtifactsCIDRs: []
+          AllowNondistributableArtifactsHostnames: []
+          InsecureRegistryCIDRs:
+          - 127.0.0.0/8
+          IndexConfigs:
+            docker.io:
+              Name: docker.io
+              Mirrors: []
+              Secure: true
+              Official: true
+          Mirrors: []
+        NCPU: 6
+        MemTotal: 2083606528
+        GenericResources: 
+        DockerRootDir: "/var/lib/docker"
+        HttpProxy: gateway.docker.internal:3128
+        HttpsProxy: gateway.docker.internal:3129
+        NoProxy: ''
+        Name: docker-desktop
+        Labels: []
+        ExperimentalBuild: false
+        ServerVersion: 19.03.13
+        ClusterStore: ''
+        ClusterAdvertise: ''
+        Runtimes:
+          runc:
+            path: runc
+        DefaultRuntime: runc
+        Swarm:
+          NodeID: ''
+          NodeAddr: ''
+          LocalNodeState: inactive
+          ControlAvailable: false
+          Error: ''
+          RemoteManagers: 
+        LiveRestoreEnabled: false
+        Isolation: ''
+        InitBinary: docker-init
+        ContainerdCommit:
+          ID: 8fba4e9a7d01810a393d5d25a3621dc101981175
+          Expected: 8fba4e9a7d01810a393d5d25a3621dc101981175
+        RuncCommit:
+          ID: dc9208a3303feef5b3839f4323d9beb36df0a9dd
+          Expected: dc9208a3303feef5b3839f4323d9beb36df0a9dd
+        InitCommit:
+          ID: fec3683
+          Expected: fec3683
+        SecurityOptions:
+        - name=seccomp,profile=default
+        ProductLicense: Community Engine
+        Warnings: 
+      host_ip_override: false
+      kitchen_root: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment"
+      log_level: :info
+      name: dokken
+      read_timeout: 3600
+      test_base_path: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment/test/integration"
+      write_timeout: 3600
+    verifier:
+      chef_omnibus_root: "/opt/chef"
+      command_prefix: 
+      debug: 
+      ftp_proxy: 
+      http_proxy: 
+      https_proxy: 
+      inspec_tests: []
+      kitchen_root: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment"
+      load_plugins: true
+      log_level: :info
+      name: inspec
+      root_path: "/tmp/verifier"
+      sudo: true
+      sudo_command: sudo -E
+      suite_name: default
+      test_base_path: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment/test/integration"
+    lifecycle_hooks:
+      debug: 
+      kitchen_root: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment"
+      log_level: :info
+      test_base_path: "/Users/pstecracer/Documents/GIT/GitHub/tecracer-chef/chef_work_environment/test/integration"
