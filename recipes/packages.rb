@@ -5,8 +5,10 @@
 # Copyright:: 2020, Patrick Schaumburg, All Rights Reserved.
 
 # Basic distribution packages
-# TODO: Add version to dist packages
-%w(yq jq yamllint direnv).each do |pkg|
+
+# TODO: Add yq as package in here again
+# TODO: Add current major version
+%w(jq yamllint direnv).each do |pkg|
   package pkg do
     action :install
   end
@@ -20,15 +22,9 @@ node['chef_work_environment']['packages']['from_distribution']&.each do |pkg|
   end
 end
 
-# TODO: REMOVE
-# + chef-raketasks
-# + custom_cookstyle
-# + custom_raketasks
-# + cookbook_generator
-
 # Basic gems
-# TODO: Add version to gems
-%w(mdl overcommit chef-raketasks custom_cookstyle custom_raketasks cookbook_generator).each do |gem|
+# TODO: Add current major version
+%w(mdl overcommit chef-raketasks).each do |gem|
   gem_package gem do
     action :install
   end
@@ -43,3 +39,4 @@ node['chef_work_environment']['packages']['gems']&.each do |gem|
 end
 
 # TODO: - vault cli: install = false
+# -> extra recipe?
