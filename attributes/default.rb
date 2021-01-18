@@ -1,5 +1,41 @@
+# This attribute file describes all attributes used in recipes.
+# Every block is designed to be used in the specified recipe name itself.
+
+################################
+# `chef_workstation.rb`
+# Chef Workstation installation
+default['chef_work_environment']['chef_workstation']['source_path'] = nil
+default['chef_work_environment']['chef_workstation']['version'] = nil
+
+################################
+# `gitlab_runner.rb`
+# GitLab Runner configurations
+# User settings
+default['chef_work_environment']['gitlab_runner']['user']['name'] = 'gitlab'
+default['chef_work_environment']['gitlab_runner']['user']['group'] = 'gitlab'
+default['chef_work_environment']['gitlab_runner']['user']['uid'] = nil
+default['chef_work_environment']['gitlab_runner']['user']['gid'] = nil
+default['chef_work_environment']['gitlab_runner']['user']['home_dir'] = nil
+default['chef_work_environment']['gitlab_runner']['user']['shell'] = '/bin/bash'
+
+# GitLab Runner package specific
+# Override the whole uri if points to a specific internal url
+default['chef_work_environment']['gitlab_runner']['standalone_binary']['uri'] = nil
+default['chef_work_environment']['gitlab_runner']['standalone_binary']['checksum'] = '4db09579af248e714374b490ccc82d423518eee1377678d05fecc3d50816e55d'
+# can be one out of the list: https://docs.gitlab.com/runner/install/bleeding-edge.html#download-the-standalone-binaries
+default['chef_work_environment']['gitlab_runner']['standalone_binary']['os_type'] = 'linux-amd64'
+# use only the version if you want to use the public uri for downloading the gitlab-runner (including starting v)
+default['chef_work_environment']['gitlab_runner']['standalone_binary']['version'] = 'v13.6.0'
+default['chef_work_environment']['gitlab_runner']['standalone_binary']['execution_path'] = '/usr/local/bin/gitlab-runner'
+
+# GitLab Runner general configuration
+default['chef_work_environment']['gitlab_runner']['config']['main']['concurrent'] = 1
+default['chef_work_environment']['gitlab_runner']['config']['main']['check_interval'] = 0
+default['chef_work_environment']['gitlab_runner']['config']['session_server']['session_timeout'] = 1800
+
+################################
+# `packages.rb`
 # additional package installation
-# used in recipe packages.rb
 default['chef_work_environment']['packages']['gems'] = [
   {
     name: 'tecracer',
@@ -13,27 +49,3 @@ default['chef_work_environment']['packages']['from_source'] = [
     version: '0.1.0',
   },
 ]
-
-# Chef Workstation installation
-# used in recipe chef_workstation.rb
-default['chef_work_environment']['chef_workstation']['source_path'] = nil
-default['chef_work_environment']['chef_workstation']['version'] = nil
-
-# GitLab Runner configurations
-# used in recipe gitlab_runner.rb
-# User settings
-default['chef_work_environment']['gitlab_runner']['user']['name'] = 'gitlab'
-default['chef_work_environment']['gitlab_runner']['user']['group'] = 'gitlab'
-default['chef_work_environment']['gitlab_runner']['user']['uid'] = nil
-default['chef_work_environment']['gitlab_runner']['user']['gid'] = nil
-default['chef_work_environment']['gitlab_runner']['user']['home_dir'] = nil
-default['chef_work_environment']['gitlab_runner']['user']['shell'] = '/bin/bash'
-
-# GitLab Runner package specific
-# Override the whole uri if points to a specific internal url
-default['chef_work_environment']['gitlab_runner']['binary']['uri'] = nil
-default['chef_work_environment']['gitlab_runner']['binary']['checksum'] = nil
-# use only the version if you want to use the public uri for downloading the gitlab-runner
-default['chef_work_environment']['gitlab_runner']['binary']['version'] = 'latest'
-
-default['chef_work_environment']['gitlab_runner']['binary']['execution_path'] = '/usr/local/bin/gitlab-runner'

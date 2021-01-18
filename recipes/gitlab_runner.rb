@@ -20,14 +20,21 @@ user gitlab_user['name'] do
   action :create # maybe modify, if really needed
 end
 
-gitlab_binary = node['chef_work_environment']['gitlab_runner']['binary']
+gitlab_binary = node['chef_work_environment']['gitlab_runner']['standalone_binary']
+log "https://s3.amazonaws.com/gitlab-runner-downloads/#{gitlab_binary['version']}/binaries/gitlab-runner-#{gitlab_binary['os_type']}"
 
 remote_file gitlab_binary['execution_path'] do
   source gitlab_binary['uri'] unless gitlab_binary['uri'].nil?
-  source "https://s3.amazonaws.com/gitlab-runner-downloads/#{gitlab_binary['version']}/binaries/gitlab-runner-linux-386" unless gitlab_binary['version'].nil?
-  checksum # TODO: add me
+  source "https://s3.amazonaws.com/gitlab-runner-downloads/#{gitlab_binary['version']}/binaries/gitlab-runner-#{gitlab_binary['os_type']}" unless gitlab_binary['version'].nil?
+  checksum gitlab_binary['checksum']
   owner gitlab_user['name']
   group gitlab_user['group']
   mode '0777'
   action :create
 end
+
+
+# node.default['chef_work_environment']['gitlab_runner']['user']['working_dir'] = "/home/#{gitlab_user['name']}"
+# execute "install_gitlab-runner_for_#{gitlab_user['name']}" do
+#   command "#{gitlab_binary['execution_path']} install --user=#{gitlab_user['name']} --working-directory=#{node['chef_work_environment']['gitlab_runner']['user']['working_dir']}"
+# end
