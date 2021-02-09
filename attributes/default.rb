@@ -13,8 +13,8 @@ default['chef_work_environment']['chef_workstation']['chef_config']['ssl_verify'
 # `gitlab_runner.rb`
 # GitLab Runner configurations
 # User settings
-default['chef_work_environment']['gitlab_runner']['user']['name'] = 'gitlab'
-default['chef_work_environment']['gitlab_runner']['user']['group'] = 'gitlab'
+default['chef_work_environment']['gitlab_runner']['user']['name'] = 'gitlab-runner'
+default['chef_work_environment']['gitlab_runner']['user']['group'] = 'gitlab-runner'
 default['chef_work_environment']['gitlab_runner']['user']['uid'] = nil
 default['chef_work_environment']['gitlab_runner']['user']['gid'] = nil
 default['chef_work_environment']['gitlab_runner']['user']['home_dir'] = nil
@@ -31,12 +31,19 @@ default['chef_work_environment']['gitlab_runner']['standalone_binary']['version'
 default['chef_work_environment']['gitlab_runner']['standalone_binary']['execution_path'] = '/usr/local/bin/gitlab-runner'
 
 # GitLab Runner general configuration
+default['chef_work_environment']['gitlab_runner']['config']['file'] = '/etc/gitlab-runner/config.toml'
 default['chef_work_environment']['gitlab_runner']['config']['main']['concurrent'] = 1
 default['chef_work_environment']['gitlab_runner']['config']['main']['check_interval'] = 0
+default['chef_work_environment']['gitlab_runner']['config']['runners']['uri'] = 'https://www.tecracer.de'
+default['chef_work_environment']['gitlab_runner']['config']['runners']['token'] = 'AOajdojvids123SAS'
+default['chef_work_environment']['gitlab_runner']['config']['runners']['executor'] = 'bash'
 default['chef_work_environment']['gitlab_runner']['config']['session_server']['session_timeout'] = 1800
 
 ################################
 # `packages.rb`
+# RHEL/CENTOS settings
+default['chef_work_environment']['packages']['use_epel'] = true
+
 # additional package installation
 default['chef_work_environment']['packages']['gems'] = nil
 default['chef_work_environment']['packages']['from_source'] = nil

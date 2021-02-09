@@ -1,0 +1,15 @@
+concurrent = <%= @concurrent %>
+check_interval = <%= @check_interval %>
+
+[session_server]
+  session_timeout = <%= @session_server_session_timeout %>
+
+[[runners]]
+  name = "<%= @runners_name %>"
+  url = "<%= @runners_uri %>"
+  token = "<%= @runners_token %>"
+  executor = "<%= @runners_executor %>"
+  [runners.custom_build_dir]
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]

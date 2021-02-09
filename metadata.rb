@@ -16,7 +16,7 @@ source_url 'https://github.com/tecracer-chef/chef_work_environment'
 issues_url 'https://github.com/tecracer-chef/chef_work_environment/issues'
 
 # Dependencies
-# depends 'chef_custom'
+depends 'yum-epel', '~> 4.1.1'
 
 # Supported OS
 supports 'ubuntu'

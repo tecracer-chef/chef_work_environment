@@ -52,6 +52,17 @@ Policyfiles for
 }
 ```
 
+
+TODO: More like an example for an additional gem
+```ruby
+default['chef_work_environment']['packages']['gems'] = [
+  {
+    name: 'tecracer',
+    version: '0.1.0',
+  },
+]
+```
+
 ## Attributes
 
 The attributes used by this cookbook:
