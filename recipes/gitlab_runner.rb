@@ -64,6 +64,6 @@ template '/etc/systemd/system/gitlab-runner.service' do
     executable: gitlab_binary['execution_path'],
     configfile: gitlab_config['file'],
     user: gitlab_user['name'],
-    workdir: 'abc',
+    workdir: 'abc', # TODO: Change this
   )
 end
