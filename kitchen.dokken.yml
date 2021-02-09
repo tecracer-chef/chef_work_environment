@@ -11,10 +11,10 @@ provisioner:
   name: dokken
 
 platforms:
-  # - name: amazonlinux-2
-  #   driver:
-  #     image: dokken/amazonlinux-2
-  #     pid_one_command: /usr/lib/systemd/systemd
+  - name: amazonlinux-2
+    driver:
+      image: dokken/amazonlinux-2
+      pid_one_command: /usr/lib/systemd/systemd
 
   - name: debian-9
     driver:
@@ -35,6 +35,11 @@ platforms:
       image: dokken/centos-7
       pid_one_command: /usr/lib/systemd/systemd
 
+  - name: centos-8
+    driver:
+      image: dokken/centos-8
+      pid_one_command: /usr/lib/systemd/systemd
+
   - name: ubuntu-18.04
     driver:
       image: dokken/ubuntu-18.04
@@ -49,9 +54,7 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  # - name: ubuntu-18.04
-  #   driver:
-  #     image: dokken/ubuntu-18.04
-  #     pid_one_command: /bin/systemd
-  #     intermediate_instructions:
-  #       - RUN /usr/bin/apt-get update
+  - name: opensuse-leap-15
+    driver:
+      image: dokken/opensuse-leap-15
+      pid_one_command: /bin/systemd
