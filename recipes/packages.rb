@@ -2,7 +2,7 @@
 # Cookbook:: chef_work_environment
 # Recipe:: packages
 #
-# Copyright:: 2020, Patrick Schaumburg, All Rights Reserved.
+# Copyright:: 2021, tecRacer Opensource, Apache-2.0.
 
 # Basic distribution packages
 
@@ -10,27 +10,28 @@
 # TODO: Add current major version
 
 # TODO: See, if to use again
-# sys_packages = [
-#   {
-#     name: 'jq',
-#     version: '1.5',
-#   },
-#   {
-#     name: 'yamllint',
-#     version: '1.2.1',
-#   },
-#   {
-#     name: 'direnv',
-#     version: '2.7',
-#   },
-# ]
+sys_packages = [
+  {
+    name: 'jq',
+    version: '1.5',
+  },
+  {
+    name: 'yamllint',
+    version: '1.2.1',
+  },
+  {
+    name: 'direnv',
+    version: '2.7',
+  },
+]
 
-# %w(jq yamllint direnv).each do |pkg|
-#   next if node['platform_family'] == 'rhel' && pkg == 'direnv'
-#   package pkg do
-#     action :install
-#   end
-# end
+sys_packages.each do |pkg|
+  next if node['platform_family'] == 'rhel' && pkg[:name] == 'direnv'
+  package pkg[:name] do
+    version pkg[:version]
+    action :install
+  end
+end
 
 # TODO: Re-enable this
 # Additional distribution packages (controlled via attributes)

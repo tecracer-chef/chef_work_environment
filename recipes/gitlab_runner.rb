@@ -2,7 +2,7 @@
 # Cookbook:: chef_work_environment
 # Recipe:: gitlab_runner
 #
-# Copyright:: 2020, The Authors, All Rights Reserved.
+# Copyright:: 2021, tecRacer Opensource, Apache-2.0.
 
 #######################################################
 # user creation

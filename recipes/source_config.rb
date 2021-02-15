@@ -2,12 +2,9 @@
 # Cookbook:: chef_work_environment
 # Recipe:: source_config
 #
-# Copyright:: 2020, The Authors, All Rights Reserved.
+# Copyright:: 2021, tecRacer Opensource, Apache-2.0.
 
 # https://docs.chef.io/packages/
-
-puts node['platform_family']
-
 case node['platform_family']
 when 'debian'
   apt_repository 'chef' do

@@ -2,7 +2,7 @@
 # Cookbook:: chef_work_environment
 # Recipe:: chef_workstation
 #
-# Copyright:: 2020, The Authors, All Rights Reserved.
+# Copyright:: 2021, tecRacer Opensource, Apache-2.0.
 
 # TODO: set environment variables (maybe via script?) for kitchen.vcenter etc.
 chef_workstation = node['chef_work_environment']['chef_workstation']
@@ -11,7 +11,6 @@ package 'chef-workstation' do
   source chef_workstation['source_path'] unless chef_workstation['source_path'].nil?
   version chef_workstation['version'] unless chef_workstation['version'].nil?
   action :install
-  # TODO: Authentication against artifactory or so?
 end
 
 template '/etc/profile.d/chef-init.sh' do

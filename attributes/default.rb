@@ -44,6 +44,10 @@ default['chef_work_environment']['gitlab_runner']['config']['session_server']['s
 # RHEL/CENTOS settings
 default['chef_work_environment']['packages']['use_epel'] = true
 
+# SUSE settings
+
+# DEBIAN/UBUNTU settings
+
 # additional package installation
 default['chef_work_environment']['packages']['gems'] = nil
 default['chef_work_environment']['packages']['from_source'] = nil
