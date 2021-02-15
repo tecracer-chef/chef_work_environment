@@ -10,7 +10,7 @@ gitlab_user = node['chef_work_environment']['gitlab_runner']['user']
 
 gitlab_user_homedir = gitlab_user['home_dir'].nil? ? "/home/#{gitlab_user['name']}" : gitlab_user['home_dir']
 
-group gitlab_user['group']
+group gitlab_user['group'] if suse?
 
 user gitlab_user['name'] do
   comment 'The technical user for the gitlab-runner'

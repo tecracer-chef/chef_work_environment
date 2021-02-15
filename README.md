@@ -2,20 +2,22 @@
 
 TODO: Enter the cookbook description here.
 
-
 chef-workstation
-  - with pre-defined version
-  - set environment variables (maybe via script?) for kitchen.vcenter etc.
+
+- with pre-defined version
+- set environment variables (maybe via script?) for kitchen.vcenter etc.
 
 gitlab-runner
 
 gem installation via attributes
-+ chef-raketasks
-+ custom_cookstyle
-+ custom_raketasks
-+ cookbook_generator
+
+- chef-raketasks
+- custom_cookstyle
+- custom_raketasks
+- cookbook_generator
 
 additional packages
+
 - yq
 - jq
 - yamllint
@@ -24,15 +26,13 @@ additional packages
 - overcommit gem
 - vault cli: install = false
 
-
 Policyfiles for
+
 - customer specific settings
   - pfgroup: gitlab-runner (CI)
   - pfgroup: gitlab-runner (CI-Canary)
   - pfgroup: workstation (WS)
   - pfgroup: workstation Canary (WS-Canary)
-
-
 
 ## Supported OS
 
@@ -52,8 +52,8 @@ Policyfiles for
 }
 ```
 
-
 TODO: More like an example for an additional gem
+
 ```ruby
 default['chef_work_environment']['packages']['gems'] = [
   {
