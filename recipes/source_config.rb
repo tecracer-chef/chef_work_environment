@@ -34,14 +34,14 @@ when 'rhel', 'amazon', suse
     baseurl "https://packages.chef.io/repos/yum/stable/el/#{pversion}/$basearch/"
     gpgkey 'https://packages.chef.io/chef.asc'
     action :create
-    only_if rhel? || amazon?
+    only_if { rhel? || amazon? }
   end
 
   zypper_repository 'chef' do
     baseurl "https://packages.chef.io/repos/yum/stable/el/#{pversion}/$basearch/"
     gpgkey 'https://packages.chef.io/chef.asc'
     action :create
-    only_if suse?
+    only_if { suse? }
   end
 end
 
