@@ -10,6 +10,8 @@ gitlab_user = node['chef_work_environment']['gitlab_runner']['user']
 
 gitlab_user_homedir = gitlab_user['home_dir'].nil? ? "/home/#{gitlab_user['name']}" : gitlab_user['home_dir']
 
+group gitlab_user['group']
+
 user gitlab_user['name'] do
   comment 'The technical user for the gitlab-runner'
   uid gitlab_user['uid'] unless gitlab_user['uid'].nil?
@@ -64,6 +66,6 @@ template '/etc/systemd/system/gitlab-runner.service' do
     executable: gitlab_binary['execution_path'],
     configfile: gitlab_config['file'],
     user: gitlab_user['name'],
-    workdir: 'abc', # TODO: Change this
+    workdir: gitlab_user_homedir, # TODO: Feels wrong right now
   )
 end

@@ -7,6 +7,8 @@
 
 # https://docs.chef.io/packages/
 
+puts node['platform_family']
+
 case node['platform_family']
 when 'debian'
   apt_repository 'chef' do
@@ -17,13 +19,29 @@ when 'debian'
     action :add
   end
 
-when 'rhel'
+when 'rhel', 'amazon', suse
   include_recipe 'yum-epel::default' if node['chef_work_environment']['packages']['use_epel']
 
+  pversion =  if amazon?
+                '7'
+              elsif suse?
+                '8'
+              else
+                node['platform_version'].split('.').first
+              end
+
   yum_repository 'chef' do
-    baseurl "https://packages.chef.io/repos/yum/stable/el/#{node['platform_version'].split('.').first}/$basearch/"
+    baseurl "https://packages.chef.io/repos/yum/stable/el/#{pversion}/$basearch/"
     gpgkey 'https://packages.chef.io/chef.asc'
     action :create
+    only_if rhel? || amazon?
+  end
+
+  zypper_repository 'chef' do
+    baseurl "https://packages.chef.io/repos/yum/stable/el/#{pversion}/$basearch/"
+    gpgkey 'https://packages.chef.io/chef.asc'
+    action :create
+    only_if suse?
   end
 end
 
