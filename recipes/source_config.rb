@@ -18,7 +18,7 @@ when 'debian'
     action :add
   end
 
-when 'rhel', 'amazon', suse
+when 'rhel', 'amazon', 'suse'
   include_recipe 'yum-epel::default' if node['chef_work_environment']['packages']['use_epel']
 
   pversion = if amazon?
