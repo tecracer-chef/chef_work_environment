@@ -4,7 +4,6 @@
 #
 # Copyright:: 2020, The Authors, All Rights Reserved.
 
-
 # TODO: set environment variables (maybe via script?) for kitchen.vcenter etc.
 chef_workstation = node['chef_work_environment']['chef_workstation']
 

@@ -30,14 +30,13 @@ remote_file gitlab_binary['execution_path'] do
   source format(gitlab_binary['uri'],
     version: gitlab_binary['version'],
     os_type: gitlab_binary['os_type']
-    )
+  )
   checksum gitlab_binary['checksum']
   owner gitlab_user['name']
   group gitlab_user['group']
   mode '0777'
   action :create
 end
-
 
 #######################################################
 # gitlab configuration
@@ -54,7 +53,7 @@ template gitlab_config['file'] do
     runners_name: node['hostname'],
     runners_uri: gitlab_config['runners']['uri'],
     runners_token: gitlab_config['runners']['token'],
-    runners_executor: gitlab_config['runners']['executor'],
+    runners_executor: gitlab_config['runners']['executor']
   )
 end
 
@@ -66,6 +65,6 @@ template '/etc/systemd/system/gitlab-runner.service' do
     executable: gitlab_binary['execution_path'],
     configfile: gitlab_config['file'],
     user: gitlab_user['name'],
-    workdir: gitlab_user_homedir, # TODO: Feels wrong right now
+    workdir: gitlab_user_homedir # TODO: Feels wrong right now
   )
 end

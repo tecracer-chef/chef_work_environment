@@ -10,20 +10,20 @@
 # TODO: Add current major version
 
 # TODO: See, if to use again
-sys_packages = [
-  {
-    name: 'jq',
-    version: '1.5',
-  },
-  {
-    name: 'yamllint',
-    version: '1.2.1',
-  },
-  {
-    name: 'direnv',
-    version: '2.7',
-  },
-]
+# sys_packages = [
+#   {
+#     name: 'jq',
+#     version: '1.5',
+#   },
+#   {
+#     name: 'yamllint',
+#     version: '1.2.1',
+#   },
+#   {
+#     name: 'direnv',
+#     version: '2.7',
+#   },
+# ]
 
 # %w(jq yamllint direnv).each do |pkg|
 #   next if node['platform_family'] == 'rhel' && pkg == 'direnv'
