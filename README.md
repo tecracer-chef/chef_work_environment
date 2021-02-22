@@ -30,7 +30,7 @@ The used attributes can be found in the default attributes file
 
 ### default
 
-- This recipe install/configure chef_work_environment
+- This recipe runs source_config, packages, chef_workstation, gitlab_runner recipes
 
 ### chef_workstation
 
