@@ -1,0 +1,15 @@
+[Unit]
+Description=GitLab Runner
+After=syslog.target network.target
+ConditionFileIsExecutable=<%= @executable%>
+
+[Service]
+StartLimitInterval=5
+StartLimitBurst=10
+ExecStart=<%= @executable%> "run" "--working-directory" "<%= @workdir%>" "--config" "<%= @configfile%>" "--service" "gitlab-runner" "--syslog" "--user" "<%= @user %>"
+
+Restart=always
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target

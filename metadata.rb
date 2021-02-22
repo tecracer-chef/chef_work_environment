@@ -1,7 +1,7 @@
 name 'chef_work_environment'
-maintainer 'Patrick Schaumburg'
-maintainer_email 'pschaumburg@tecracer.de'
-license 'All Rights Reserved'
+maintainer 'tecRacer Opensource'
+maintainer_email 'opensource@tecracer.de'
+license 'Apache-2.0'
 description 'Installs/Configures chef_work_environment'
 version '0.1.0'
 
@@ -16,9 +16,10 @@ source_url 'https://github.com/tecracer-chef/chef_work_environment'
 issues_url 'https://github.com/tecracer-chef/chef_work_environment/issues'
 
 # Dependencies
-# depends 'chef_custom'
+depends 'yum-epel', '~> 4.1.1'
 
 # Supported OS
 supports 'ubuntu'
 supports 'debian'
 supports 'redhat'
+# supports 'suse'
