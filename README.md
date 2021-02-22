@@ -34,11 +34,13 @@ The used attributes can be found in the default attributes file
 
 ### chef_workstation
 
-- This recipe installs and configures the chef workstation based on the selected sources
+- This recipe installs and configures the chef workstation based on the selected
+  sources
 
 ### gitlab_runner
 
-- This recipe installs and configures the gitlab runner based on an url and registers itself
+- This recipe installs and configures the gitlab runner based on an url and
+  registers itself
 
 ### packages
 
@@ -46,8 +48,8 @@ The used attributes can be found in the default attributes file
 
 ### source_config
 
-- This recipe is used for configuring different sources. Right now it is only configured to
-  add the official chef apt and rpm sources
+- This recipe is used for configuring different sources. Right now it is only
+  configured to add the official chef apt and rpm sources
 
 ## License and Authors
 
