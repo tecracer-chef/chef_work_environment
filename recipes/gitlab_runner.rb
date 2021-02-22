@@ -59,12 +59,25 @@ end
 
 #######################################################
 # gitlab service config
-template '/etc/systemd/system/gitlab-runner.service' do
-  source 'gitlab-runner-systemd.conf.erb'
-  variables(
-    executable: gitlab_binary['execution_path'],
-    configfile: gitlab_config['file'],
-    user: gitlab_user['name'],
-    workdir: gitlab_user_homedir # TODO: Feels wrong right now
-  )
+systemd_unit 'gitlab-runner.service' do
+  content <<~EOU
+    [Unit]
+    Description=GitLab Runner
+    After=syslog.target network.target
+    ConditionFileIsExecutable=#{gitlab_binary['execution_path']}
+
+    [Service]
+    StartLimitInterval=5
+    StartLimitBurst=10
+    ExecStart=#{gitlab_binary['execution_path']} "run" "--working-directory" "#{gitlab_user_homedir}" "--config" "#{gitlab_binary['file']}" "--service" "gitlab-runner" "--syslog" "--user" "#{gitlab_user['name']}"
+
+    Restart=always
+    RestartSec=120
+
+    [Install]
+    WantedBy=multi-user.target
+
+  EOU
+
+  action [:create, :enable]
 end
