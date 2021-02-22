@@ -8,14 +8,14 @@
 # user creation
 gitlab_user = node['chef_work_environment']['gitlab_runner']['user']
 
-gitlab_user_homedir = gitlab_user['home_dir'].nil? ? "/home/#{gitlab_user['name']}" : gitlab_user['home_dir']
+gitlab_user_homedir = gitlab_user['home_dir'] ? gitlab_user['home_dir'] : "/home/#{gitlab_user['name']}"
 
-group gitlab_user['group'] if suse?
+group gitlab_user['group']
 
 user gitlab_user['name'] do
   comment 'The technical user for the gitlab-runner'
   uid gitlab_user['uid'] unless gitlab_user['uid'].nil?
-  gid gitlab_user['gid'] unless gitlab_user['gid'].nil?
+  gid gitlab_user['group']
   home gitlab_user_homedir
   manage_home true
   shell gitlab_user['shell']
