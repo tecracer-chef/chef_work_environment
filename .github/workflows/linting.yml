@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
-      uses: actions/checkout@master
+      uses: actions/checkout@main
     - name: Install Chef
-      uses: actionshub/chef-install@master
+      uses: actionshub/chef-install@main
     - name: Run cookstyle
       run: cookstyle
       env:
@@ -22,6 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - name: Run Markdown Lint
-        uses: actionshub/markdownlint@master
+        uses: actionshub/markdownlint@main

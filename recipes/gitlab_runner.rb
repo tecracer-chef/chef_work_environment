@@ -79,5 +79,5 @@ systemd_unit 'gitlab-runner.service' do
 
   EOU
 
-  action [:create, :enable]
+  action [:create, :enable, :start]
 end
