@@ -8,7 +8,7 @@
 # user creation
 gitlab_user = node['chef_work_environment']['gitlab_runner']['user']
 
-gitlab_user_homedir = gitlab_user['home_dir'] ? gitlab_user['home_dir'] : "/home/#{gitlab_user['name']}"
+gitlab_user_homedir = gitlab_user['home_dir'] || "/home/#{gitlab_user['name']}"
 
 group gitlab_user['group']
 
