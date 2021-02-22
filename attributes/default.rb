@@ -30,6 +30,18 @@ default['chef_work_environment']['gitlab_runner']['standalone_binary']['os_type'
 default['chef_work_environment']['gitlab_runner']['standalone_binary']['version'] = 'v13.6.0'
 default['chef_work_environment']['gitlab_runner']['standalone_binary']['execution_path'] = '/usr/local/bin/gitlab-runner'
 
+# Debian source
+default['chef_work_environment']['source']['debian']['uri'] = 'https://packages.chef.io/repos/apt/stable'
+default['chef_work_environment']['source']['debian']['key'] = 'https://packages.chef.io/chef.asc'
+
+# yum source
+default['chef_work_environment']['source']['rhel']['baseuri'] = 'https://packages.chef.io/repos/yum/stable/el/7/$basearch/'
+default['chef_work_environment']['source']['rhel']['gpgkey'] = 'https://packages.chef.io/chef.asc'
+
+# suse source
+default['chef_work_environment']['source']['suse']['baseuri'] = 'https://packages.chef.io/repos/yum/stable/el/8/$basearch/'
+default['chef_work_environment']['source']['suse']['gpgkey'] = 'https://packages.chef.io/chef.asc'
+
 # GitLab Runner general configuration
 default['chef_work_environment']['gitlab_runner']['config']['file'] = '/etc/gitlab-runner/config.toml'
 default['chef_work_environment']['gitlab_runner']['config']['main']['concurrent'] = 1
