@@ -8,7 +8,7 @@
 
 # TODO: Add yq as package in here again
 %w(jq yamllint direnv).each do |pkg|
-  next if node['platform_family'] == 'rhel' && pkg == 'direnv'
+  next if platform_family?('rhel') && pkg == 'direnv'
   package pkg do
     action :install
   end

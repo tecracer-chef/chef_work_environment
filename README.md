@@ -1,38 +1,8 @@
 # chef_work_environment
 
-TODO: Enter the cookbook description here.
-
-chef-workstation
-
-- with pre-defined version
-- set environment variables (maybe via script?) for kitchen.vcenter etc.
-
-gitlab-runner
-
-gem installation via attributes
-
-- chef-raketasks
-- custom_cookstyle
-- custom_raketasks
-- cookbook_generator
-
-additional packages
-
-- yq
-- jq
-- yamllint
-- mdl gem
-- direnv apt
-- overcommit gem
-- vault cli: install = false
-
-Policyfiles for
-
-- customer specific settings
-  - pfgroup: gitlab-runner (CI)
-  - pfgroup: gitlab-runner (CI-Canary)
-  - pfgroup: workstation (WS)
-  - pfgroup: workstation Canary (WS-Canary)
+The cookbook provides an all in one installation and configuration for a commonly
+used chef environment and includes source configuration, package installation and
+CI/CD gitlab-runner installation.
 
 ## Supported OS
 
@@ -42,17 +12,6 @@ Policyfiles for
 
 - Use json/attributes to set parameters
 - Use default recipe in RunList
-
-```json
-{
-  "chef_work_environment": {
-    "attrib1": "",
-    "attrib2": ""
-  }
-}
-```
-
-TODO: More like an example for an additional gem
 
 ```ruby
 default['chef_work_environment']['packages']['gems'] = [
@@ -65,12 +24,7 @@ default['chef_work_environment']['packages']['gems'] = [
 
 ## Attributes
 
-The attributes used by this cookbook:
-
-Attribute      | Description                  | Type    | Default
--------------- | ---------------------------- | ------- | ----------------------
-attrib1        | Example attribute 1          | String  | example
-attrib2        | Example attribute 2          | Boolean | false
+The used attributes can be found in the default attributes file
 
 ## Recipes
 
@@ -78,8 +32,25 @@ attrib2        | Example attribute 2          | Boolean | false
 
 - This recipe install/configure chef_work_environment
 
+### chef_workstation
+
+- This recipe installs and configures the chef workstation based on the selected sources
+
+### gitlab_runner
+
+- This recipe installs and configures the gitlab runner based on an url and registers itself
+
+### packages
+
+- This recipe installs several default and always used packages and gems
+
+### source_config
+
+- This recipe is used for configuring different sources. Right now it is only configured to
+  add the official chef apt and rpm sources
+
 ## License and Authors
 
-- Author: Patrick Schaumburg (pschaumburg@tecracer.de)
+- Author: tecRacer OpenSource (opensource@tecracer.de)
 - Copyright tecRacer
 - Licensed under Apache-2.0
