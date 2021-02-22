@@ -34,8 +34,8 @@ default['chef_work_environment']['gitlab_runner']['standalone_binary']['executio
 default['chef_work_environment']['gitlab_runner']['config']['file'] = '/etc/gitlab-runner/config.toml'
 default['chef_work_environment']['gitlab_runner']['config']['main']['concurrent'] = 1
 default['chef_work_environment']['gitlab_runner']['config']['main']['check_interval'] = 0
-default['chef_work_environment']['gitlab_runner']['config']['runners']['uri'] = 'https://www.tecracer.de'
-default['chef_work_environment']['gitlab_runner']['config']['runners']['token'] = 'AOajdojvids123SAS'
+default['chef_work_environment']['gitlab_runner']['config']['runners']['uri'] = 'https://gitlab.exampledomain.com'
+default['chef_work_environment']['gitlab_runner']['config']['runners']['token'] = 'exampletoken'
 default['chef_work_environment']['gitlab_runner']['config']['runners']['executor'] = 'bash'
 default['chef_work_environment']['gitlab_runner']['config']['session_server']['session_timeout'] = 1800
 
