@@ -6,10 +6,15 @@
 
 # TODO: set environment variables (maybe via script?) for kitchen.vcenter etc.
 chef_workstation = node['chef_work_environment']['chef_workstation']
+source = node['chef_work_environment']['source']
+
+# Parameter parity between Debian/Ubuntu and other platforms
+chef_workstation_version = chef_workstation['version']
+chef_workstation_version += "-1" if debian?
 
 package 'chef-workstation' do
   source chef_workstation['source_path'] unless chef_workstation['source_path'].nil?
-  version chef_workstation['version'] unless chef_workstation['version'].nil?
+  version chef_workstation_version unless chef_workstation_version.nil?
   action :install
 end
 
@@ -24,10 +29,10 @@ end
 template '/etc/profile.d/chef-env-vars.sh' do
   source 'profiled-chef-env-vars.sh.erb'
   variables(
-    rubygems_host: node['chef_work_environment']['source']['gems'],
-    chef_omnitruck: node['chef_work_environment']['source']['omnitruck'],
-    chef_server: node['chef_work_environment']['source']['chef_server'],
-    chef_supermarket: node['chef_work_environment']['source']['supermarket'],
+    rubygems_host: source['gems'],
+    chef_omnitruck: source['omnitruck'],
+    chef_server: source['chef_server'],
+    chef_supermarket: source['supermarket'],
 
     attribute_env_vars: Hash(node['chef_work_environment']['env-vars'])
   )
@@ -43,14 +48,35 @@ end
 # TODO: Should we put this really into skel file or loop through users? -> Put in profile.d chef-init.sh
 # TODO: What are we doing in here when this file is used by gitlab-runner?
 # TODO: Force client override as attribute!!!
+
 # create skeleton file for default config.rb
+#   Users might be in a different org interacting with the Chef Server
 template '/etc/skel/.chef/config.rb' do
   source 'skel-chef-config.rb.erb'
+
+  variables(
+    chef_server: source['chef_server'],
+    # chef_server_org override via CHEF_SERVER_ORG environment variable
+    chef_supermarket: source['supermarket'],
+    rubygems_host: source['gems'],
+
+    ssl_verify: chef_workstation['chef_config']['ssl_verify']
+  )
 end
 
 # System-wide client configuration
+#   This system might be bootstrapped for continuous management
 template '/etc/chef/client.rb' do
-  source 'skel-chef-config.rb.erb'
+  source 'etc-chef-client.rb.erb'
+
+  variables(
+    chef_server: source['chef_server'],
+    chef_server_org: source['chef_server_org'],
+    chef_supermarket: source['supermarket'],
+    rubygems_host: source['gems'],
+
+    ssl_verify: chef_workstation['chef_config']['ssl_verify']
+  )
 end
 
 # gem source

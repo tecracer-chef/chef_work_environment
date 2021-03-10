@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+  provider: vmware_desktop
+  require_chef_omnibus: true
+  cachier: true
+  linked_clone: true
+  customize:
+    memory: 1024
+
+provisioner:
+  name: chef_zero
+  product_version: 16
+  channel: stable
+  product_name: chef
+
+client_rb:
+  chef_license: accept
+
+platforms:
+  - name: ubuntu-20.04
+
+verifier:
+  name: inspec
+
+suites:
+  - name: default
+    provisioner:
+      policyfile: policyfile/chef_work_environment.rb

@@ -6,7 +6,8 @@
 # Setting internal repositories
 default['chef_work_environment']['source']['gems'] = 'https://rubygems.org'
 default['chef_work_environment']['source']['omnitruck'] = 'https://omnitruck.chef.io/'
-default['chef_work_environment']['source']['chef_server'] = 'https://api.chef.io/organizations/example'
+default['chef_work_environment']['source']['chef_server'] = 'https://api.chef.io/'
+default['chef_work_environment']['source']['chef_server_org'] = 'example'
 default['chef_work_environment']['source']['supermarket'] = 'https://supermarket.chef.io/'
 default['chef_work_environment']['source']['debian']['uri'] = 'https://packages.chef.io/repos/apt/stable'
 default['chef_work_environment']['source']['debian']['key'] = 'https://packages.chef.io/chef.asc'
