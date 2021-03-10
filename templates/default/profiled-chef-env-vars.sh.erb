@@ -1,0 +1,11 @@
+#!/bin/bash
+
+export CHEF_OMNITRUCK="<%= @chef_omnitruck %>"
+export CHEF_SERVER_URL="<%= @chef_server %>"
+export CHEF_SUPERMARKET_URL="<%= @chef_supermarket %>"
+export RUBYGEMS_HOST="<%= @rubygems_host %>"
+
+# From attributes
+<% @attribute_env_vars.each do |var, contents| %>
+export <%= var.upcase %>="<%= contents %>"
+<% end %>

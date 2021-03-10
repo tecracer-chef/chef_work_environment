@@ -32,7 +32,3 @@ when 'rhel', 'amazon', 'suse'
     only_if { suse? }
   end
 end
-
-# apt source
-# rhel source
-# gem source

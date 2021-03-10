@@ -6,21 +6,33 @@ CI/CD gitlab-runner installation.
 
 ## Supported OS
 
-- Windows 2012R2 and 2019
+- Linux
 
 ## Usage
 
 - Use json/attributes to set parameters
-- Use default recipe in RunList
+- Use default recipe in RunList for Chef Workstation install
+- Use default recipe and `gitlab_runner` for Gitlab Runner install
 
 ```ruby
 default['chef_work_environment']['packages']['gems'] = [
   {
-    name: 'tecracer',
+    name: 'custom_cookstyle',
+    version: '0.1.0',
+  },
+  {
+    name: 'custom_raketaks',
+    version: '0.1.0',
+  },
+  {
+    name: 'cookbook_generator',
     version: '0.1.0',
   },
 ]
 ```
+
+Note: These three examples point towards Gems you can use to create company-specific
+packages without risking naming conflicts (as they will remain on 0.0.1 forever).
 
 ## Attributes
 
@@ -30,7 +42,7 @@ The used attributes can be found in the default attributes file
 
 ### default
 
-- This recipe runs source_config, packages, chef_workstation, gitlab_runner recipes
+- This recipe runs source_config, packages, chef_workstation recipes
 
 ### chef_workstation
 
@@ -48,8 +60,13 @@ The used attributes can be found in the default attributes file
 
 ### source_config
 
-- This recipe is used for configuring different sources. Right now it is only
-  configured to add the official chef apt and rpm sources
+- This recipe is used for configuring different sources. It configures the official
+  Chef APT and Redhat RPM repositories as well as Rubygems
+
+### vault
+
+- This recipe installs the Vault binary to interact with Vault servers or start a
+  local development one
 
 ## License and Authors
 

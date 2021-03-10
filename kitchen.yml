@@ -1,7 +1,12 @@
 ---
 driver:
   name: vagrant
+  provider: vmware_desktop
   require_chef_omnibus: true
+  customize:
+    memory: 1024
+  cachier: true
+  linked_clone: true
   customize:
     memory: 1024
 
@@ -16,6 +21,7 @@ client_rb:
 
 platforms:
   - name: centos-7
+  - name: ubuntu-20.04
 
 verifier:
   name: inspec
@@ -24,3 +30,12 @@ suites:
   - name: default
     run_list:
       - recipe[chef_work_environment::default]
+  - name: vault
+    run_list:
+      - recipe[chef_work_environment::default]
+      - recipe[chef_work_environment::vault]
+  - name: gitlab-runner
+    run_list:
+      - recipe[chef_work_environment::default]
+      - recipe[chef_work_environment::gitlab_runner]
+      - recipe[chef_work_environment::vault]

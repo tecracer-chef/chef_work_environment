@@ -21,6 +21,19 @@ template '/etc/profile.d/chef-init.sh' do
   mode '0755'
 end
 
+template '/etc/profile.d/chef-env-vars.sh' do
+  source 'profiled-chef-env-vars.sh.erb'
+  variables(
+    rubygems_host: node['chef_work_environment']['source']['gems'],
+    chef_omnitruck: node['chef_work_environment']['source']['omnitruck'],
+    chef_server: node['chef_work_environment']['source']['chef_server'],
+    chef_supermarket: node['chef_work_environment']['source']['supermarket'],
+
+    attribute_env_vars: Hash(node['chef_work_environment']['env-vars'])
+  )
+  mode '0755'
+end
+
 # create skeleton for first login of a user
 directory '/etc/skel/.chef' do
   action :create
@@ -33,4 +46,30 @@ end
 # create skeleton file for default config.rb
 template '/etc/skel/.chef/config.rb' do
   source 'skel-chef-config.rb.erb'
+end
+
+# System-wide client configuration
+template '/etc/chef/client.rb' do
+  source 'skel-chef-config.rb.erb'
+end
+
+# gem source
+gem_sources = Array(node['chef_work_environment']['source']['gems'])
+unless gem_sources.empty?
+  gem_output = shell_out('gem environment')
+  raise 'Could not find `gem` command' unless gem_output.exitstatus.zero?
+
+  gemrc_dir = gem_output.stdout.match(/SYSTEM CONFIGURATION DIRECTORY: (.*)$/).captures&.first
+  raise 'Could not find RubyGems system configuration directory' if gemrc_dir.empty?
+
+  # Point to Chef Workstation, not Chef Client
+  template '/opt/chef-workstation/embedded/etc/gemrc' do
+    source 'gemrc.erb'
+    variables(
+      gem_sources: gem_sources
+    )
+    mode '0644'
+
+    not_if { gem_sources.empty? }
+  end
 end
