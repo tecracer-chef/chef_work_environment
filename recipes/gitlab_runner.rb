@@ -93,11 +93,11 @@ execute 'Register Gitlab Runner' do
        --executor #{gitlab_runner['executor'] || 'shell'} \
        --non-interactive
   SHELL
-  environment ({
+  environment(
     CI_SERVER_URL: gitlab_runner['uri'],
     REGISTRATION_TOKEN: gitlab_runner['token'],
-    REGISTER_LOCKED: false,
-  })
+    REGISTER_LOCKED: false
+  )
   sensitive true
 
   not_if { gitlab_runner['uri']&.empty? || gitlab_runner['token']&.empty? }

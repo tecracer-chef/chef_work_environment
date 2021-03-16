@@ -1,5 +1,6 @@
 ---
 :disable_default_gem_server: true
+<% if @ssl_verify == 'verify_none' %>:ssl_verify_mode: 0<% end %>
 :sources:
 <% @gem_sources.each do |source| %>- <%= source %>
 <% end %>

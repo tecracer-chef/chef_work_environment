@@ -6,7 +6,7 @@
 
 vault_archive = File.join(Chef::Config[:file_cache_path], 'vault.zip')
 
-remote_file vault_archive do 
+remote_file vault_archive do
   source node['chef_work_environment']['vault']['uri']
   checksum node['chef_work_environment']['vault']['checksum']
 end
@@ -26,4 +26,5 @@ template '/etc/profile.d/vault-env-vars.sh' do
     vault_skip_verify: node['chef_work_environment']['vault']['skip_verify']
   )
   mode '0755'
+  sensitive true
 end

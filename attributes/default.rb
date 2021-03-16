@@ -16,6 +16,9 @@ default['chef_work_environment']['source']['rhel']['gpgkey'] = 'https://packages
 default['chef_work_environment']['source']['suse']['baseuri'] = 'https://packages.chef.io/repos/yum/stable/el/8/$basearch/'
 default['chef_work_environment']['source']['suse']['gpgkey'] = 'https://packages.chef.io/chef.asc'
 
+# Internal package repositories (air gap envrionments)
+default['chef_work_environment']['source']['debian']['internal'] = []
+
 # default['chef_work_environment']['http_proxy'] = nil
 # default['chef_work_environment']['https_proxy'] = nil
 
@@ -27,7 +30,6 @@ default['chef_work_environment']['chef_workstation']['version'] = nil
 default['chef_work_environment']['chef_workstation']['shell'] = 'bash'
 default['chef_work_environment']['chef_workstation']['chef_config']['ssl_verify'] = 'verify_none'
 # default['chef_work_environment']['chef_workstation']['repin'] = { inspec: "4.26.13" }
-
 
 ################################
 # `gitlab_runner.rb`
@@ -71,7 +73,7 @@ default['chef_work_environment']['packages']['use_epel'] = true
 
 # additional package installation
 default['chef_work_environment']['packages']['gems'] = nil
-default['chef_work_environment']['packages']['from_source'] = nil
+default['chef_work_environment']['packages']['system'] = nil
 
 ################################
 # `vault.rb`

@@ -6,11 +6,11 @@
 
 # TODO: set environment variables (maybe via script?) for kitchen.vcenter etc.
 chef_workstation = node['chef_work_environment']['chef_workstation']
-source = node['chef_work_environment']['source']
+alternate_sources = node['chef_work_environment']['source']
 
 # Parameter parity between Debian/Ubuntu and other platforms
 chef_workstation_version = chef_workstation['version']
-chef_workstation_version += "-1" if debian?
+chef_workstation_version += '-1' if debian?
 
 package 'chef-workstation' do
   source chef_workstation['source_path'] unless chef_workstation['source_path'].nil?
@@ -18,6 +18,7 @@ package 'chef-workstation' do
   action :install
 end
 
+# Setup autocompletion globally
 template '/etc/profile.d/chef-init.sh' do
   source 'profiled-chef-init.sh.erb'
   variables(
@@ -26,17 +27,20 @@ template '/etc/profile.d/chef-init.sh' do
   mode '0755'
 end
 
+# Setup environment variables globally
 template '/etc/profile.d/chef-env-vars.sh' do
   source 'profiled-chef-env-vars.sh.erb'
   variables(
-    rubygems_host: source['gems'],
-    chef_omnitruck: source['omnitruck'],
-    chef_server: source['chef_server'],
-    chef_supermarket: source['supermarket'],
+    rubygems_host: alternate_sources['gems'],
+    chef_omnitruck: alternate_sources['omnitruck'],
+    chef_server: alternate_sources['chef_server'],
+    chef_server_org: alternate_sources['chef_server_org'],
+    chef_supermarket: alternate_sources['supermarket'],
 
     attribute_env_vars: Hash(node['chef_work_environment']['env-vars'])
   )
   mode '0755'
+  sensitive true
 end
 
 # create skeleton for first login of a user
@@ -55,13 +59,18 @@ template '/etc/skel/.chef/config.rb' do
   source 'skel-chef-config.rb.erb'
 
   variables(
-    chef_server: source['chef_server'],
+    chef_server: alternate_sources['chef_server'],
     # chef_server_org override via CHEF_SERVER_ORG environment variable
-    chef_supermarket: source['supermarket'],
-    rubygems_host: source['gems'],
+    chef_supermarket: alternate_sources['supermarket'],
+    rubygems_host: alternate_sources['gems'],
 
     ssl_verify: chef_workstation['chef_config']['ssl_verify']
   )
+end
+
+directory '/etc/chef/client.d' do
+  recursive true
+  action :create
 end
 
 # System-wide client configuration
@@ -70,10 +79,10 @@ template '/etc/chef/client.rb' do
   source 'etc-chef-client.rb.erb'
 
   variables(
-    chef_server: source['chef_server'],
-    chef_server_org: source['chef_server_org'],
-    chef_supermarket: source['supermarket'],
-    rubygems_host: source['gems'],
+    chef_server: alternate_sources['chef_server'],
+    chef_server_org: alternate_sources['chef_server_org'],
+    chef_supermarket: alternate_sources['supermarket'],
+    rubygems_host: alternate_sources['gems'],
 
     ssl_verify: chef_workstation['chef_config']['ssl_verify']
   )
@@ -92,7 +101,8 @@ unless gem_sources.empty?
   template '/opt/chef-workstation/embedded/etc/gemrc' do
     source 'gemrc.erb'
     variables(
-      gem_sources: gem_sources
+      gem_sources: gem_sources,
+      ssl_verify: chef_workstation['chef_config']['ssl_verify']
     )
     mode '0644'
 

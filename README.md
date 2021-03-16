@@ -62,11 +62,46 @@ The used attributes can be found in the default attributes file
 
 - This recipe is used for configuring different sources. It configures the official
   Chef APT and Redhat RPM repositories as well as Rubygems
+- Optionally overrides the Debian standard package sources with those specified
+  in the attributes
 
 ### vault
 
 - This recipe installs the Vault binary to interact with Vault servers or start a
   local development one
+
+## Systems without internet access
+
+On Debian-based systems, use the `source_internal` recipe first to swap the
+distribution standard sources with your internal mirrors:
+
+__Attributes file__
+
+```ruby
+# Your attributes:
+node['chef_work_environment']['source']['debian']['internal'] = [
+  {
+    'name': 'archive',
+    'uri': 'https://internal.artifactory/archive.ubuntu/,
+    'components': %w[main restricted],
+    # 'key': 'https://internal.artifactory/api/gpg/key/public'
+  },
+  {
+    'name': 'security',
+    'uri': 'https://internal.mirror/security.ubuntu/',
+    'components': %w[main restricted],
+    # 'key': 'https://internal.artifactory/api/gpg/key/public'
+  }
+]
+```
+
+If you use internal signing, keep in mind that you need to manually add a GPG key
+on Artifactory for this to work. If you do not do it, omit the key attribute completely.
+
+On all supported Linux distributions, you can also override
+
+- the default Gem source in `node['chef_work_environment']['source']['gems']`
+- the Chef repository in `node['chef_work_environment'][DISTRIBUTION]['uri']`
 
 ## License and Authors
 

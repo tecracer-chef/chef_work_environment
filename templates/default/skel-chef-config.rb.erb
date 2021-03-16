@@ -1,15 +1,11 @@
-# See https://docs.getchef.com/config_rb_knife.html for more information on knife configuration options
-
-current_dir = File.dirname(__FILE__)
-log_level                :info
-log_location             STDOUT
-cookbook_path            [".", "..", "#{current_dir}/../cookbooks"]
+cookbook_path            [".", "..", "#{__dir__}/../cookbooks", "#{__dir__}/../GIT/cookbooks"]
 
 knife[:supermarket_site] = "<%= @chef_supermarket %>"
+
 ssl_verify_mode          :<%= @ssl_verify %>
 
 # Chef Server
 node_name                "#{ENV['CHEF_SERVER_ORG_USER']}"
-client_key               "#{current_dir}/private-key.pem"
+client_key               "#{__dir__}/client.pem"
 chef_server_url          "<%= File.join(@chef_server, 'organizations') %>/#{ENV['CHEF_SERVER_ORG']}"
 rubygems_url             "<%= @rubygems_host %>"
