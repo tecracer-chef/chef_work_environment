@@ -80,10 +80,8 @@ The used attributes can be found in the default attributes file
 On Debian-based systems, use the `source_internal` recipe first to swap the
 distribution standard sources with your internal mirrors:
 
-__Attributes file__
-
 ```ruby
-# Your attributes:
+# Your attributes file:
 node['chef_work_environment']['source']['debian']['internal'] = [
   {
     'name': 'archive',
