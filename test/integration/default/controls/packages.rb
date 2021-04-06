@@ -1,6 +1,6 @@
 title 'Packages'
 
-control 'Packages' do
+control 'packages' do
   title 'Check if necessary packages are installed'
   describe package('yamllint') do
     it { should be_installed }

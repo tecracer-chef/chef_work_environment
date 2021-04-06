@@ -42,7 +42,7 @@ The used attributes can be found in the default attributes file
 
 ### default
 
-- This recipe runs source_config, packages, chef_workstation recipes
+- This recipe runs source_config, packages, chef_workstation and repin recipes
 
 ### chef_workstation
 
@@ -64,6 +64,11 @@ The used attributes can be found in the default attributes file
   Chef APT and Redhat RPM repositories as well as Rubygems
 - Optionally overrides the Debian standard package sources with those specified
   in the attributes
+
+### repin
+
+- This recipe can change Chef-bundled gem versions in the wrappers under
+  /opt/chef-workstation/bin to use older or newer ones
 
 ### vault
 

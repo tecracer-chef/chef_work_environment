@@ -18,8 +18,8 @@ archive_file vault_archive do
   action :extract
 end
 
-template '/etc/profile.d/vault-env-vars.sh' do
-  source 'profiled-vault-env-vars.sh.erb'
+template '/etc/profile.d/vault.sh' do
+  source 'profiled-vault.sh.erb'
   variables(
     vault_addr: node['chef_work_environment']['vault']['endpoint'],
     vault_token: node['chef_work_environment']['vault']['token'],

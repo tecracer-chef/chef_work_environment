@@ -10,9 +10,9 @@ driver:
 
 provisioner:
   name: chef_zero
-  product_version: 16
   channel: stable
   product_name: chef
+  product_version: 16
 
 client_rb:
   chef_license: accept
@@ -23,17 +23,34 @@ platforms:
 
 verifier:
   name: inspec
+  inspec_tests:
+    - test/integration/default
 
 suites:
   - name: default
     run_list:
       - recipe[chef_work_environment::default]
+    verifier:
+      controls:
+        - chef_workstation
+        - packages
   - name: vault
     run_list:
       - recipe[chef_work_environment::default]
       - recipe[chef_work_environment::vault]
+    verifier:
+      controls:
+        - chef_workstation
+        - packages
+        - vault
   - name: gitlab-runner
     run_list:
       - recipe[chef_work_environment::default]
       - recipe[chef_work_environment::gitlab_runner]
       - recipe[chef_work_environment::vault]
+    verifier:
+      controls:
+        - chef_workstation
+        - packages
+        - gitlab_runner
+        - vault

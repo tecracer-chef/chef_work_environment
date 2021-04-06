@@ -26,7 +26,6 @@ default['chef_work_environment']['source']['debian']['internal'] = []
 # `chef_workstation.rb`
 # Chef Workstation installation
 default['chef_work_environment']['chef_workstation']['source_path'] = nil
-default['chef_work_environment']['chef_workstation']['install_path'] = '/opt/chef-workstation'
 default['chef_work_environment']['chef_workstation']['version'] = nil
 default['chef_work_environment']['chef_workstation']['shell'] = 'bash'
 default['chef_work_environment']['chef_workstation']['chef_config']['ssl_verify'] = 'verify_none'
@@ -45,11 +44,11 @@ default['chef_work_environment']['gitlab_runner']['user']['shell'] = '/bin/bash'
 # GitLab Runner package specific
 # Override the whole uri if points to a specific internal url
 default['chef_work_environment']['gitlab_runner']['standalone_binary']['uri'] = 'https://s3.amazonaws.com/gitlab-runner-downloads/%<version>s/binaries/gitlab-runner-%<os_type>s'
-default['chef_work_environment']['gitlab_runner']['standalone_binary']['checksum'] = 'e41d5849024d9e41d3ab8301897bdcdb9d0d30166c77135327ad216b983ca498'
+default['chef_work_environment']['gitlab_runner']['standalone_binary']['checksum'] = '9322be332d243718671d091913623336f3ae7422822521967658ba3b6d08a1c2'
 # can be one out of the list: https://docs.gitlab.com/runner/install/bleeding-edge.html#download-the-standalone-binaries
 default['chef_work_environment']['gitlab_runner']['standalone_binary']['os_type'] = 'linux-amd64'
 # use only the version if you want to use the public uri for downloading the gitlab-runner (including starting v)
-default['chef_work_environment']['gitlab_runner']['standalone_binary']['version'] = 'v13.9.0'
+default['chef_work_environment']['gitlab_runner']['standalone_binary']['version'] = 'v13.10.0'
 default['chef_work_environment']['gitlab_runner']['standalone_binary']['execution_path'] = '/usr/local/bin/gitlab-runner'
 
 # GitLab Runner general configuration
@@ -85,5 +84,5 @@ default['chef_work_environment']['vault']['endpoint'] = ENV['VAULT_ADDR']
 default['chef_work_environment']['vault']['token'] = ENV['VAULT_TOKEN']
 default['chef_work_environment']['vault']['skip_verify'] = ENV['VAULT_SKIP_VERIFY']
 
-default['chef_work_environment']['vault']['uri'] = 'https://releases.hashicorp.com/vault/1.6.3/vault_1.6.3_linux_amd64.zip'
-default['chef_work_environment']['vault']['sha256'] = '11515792a2c5635bf8ea6ce7f9b6e7f865cf83d66220b3022678e9070b8b8892'
+default['chef_work_environment']['vault']['uri'] = 'https://releases.hashicorp.com/vault/1.7.0/vault_1.7.0_linux_amd64.zip'
+default['chef_work_environment']['vault']['sha256'] = 'aad2f50635ef4e3f2495b0b6c855061c4047c795821fda886b326c1a71c71c35'

@@ -18,14 +18,14 @@ default['chef_client'] = {
 # Main attributes of the cookbook
 default['chef_work_environment'] = {
   'chef_workstation': {
-    'version': '21.2.303',
+    'version': '21.3.346',
   },
 }
 
-# Policy group "chef_workstation" within this policy
-default['chef_workstation'] = {
+# Policy group "developer" within this policy
+default['developer'] = {
   'chef_work_environment': {
-    # Put overrides for your managed workstations here
+    # Put overrides for your managed developer workstations here
   },
 }
 

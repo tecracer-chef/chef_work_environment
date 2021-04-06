@@ -1,6 +1,6 @@
 title 'GitLab Runner'
 
-control 'GitLab Runner' do
+control 'gitlab_runner' do
   title 'Check if GitLab Runner is installed and properly configured'
 
   describe user('gitlab-runner') do

@@ -39,28 +39,9 @@ remote_file gitlab_binary['execution_path'] do
 end
 
 #######################################################
-# gitlab configuration
-directory '/etc/gitlab-runner'
-
+# gitlab service config
 gitlab_config = node['chef_work_environment']['gitlab_runner']['config']
 
-template gitlab_config['file'] do
-  source 'gitlab-runner-config.toml.erb'
-  variables(
-    concurrent: gitlab_config['main']['concurrent'],
-    check_interval: gitlab_config['main']['check_interval'],
-    session_server_session_timeout: gitlab_config['session_server']['session_timeout'],
-    runners_name: node['hostname'],
-    runners_uri: gitlab_config['runners']['uri'],
-    runners_token: gitlab_config['runners']['token'],
-    runners_executor: gitlab_config['runners']['executor']
-  )
-
-  notifies :restart, 'systemd_unit[gitlab-runner.service]', :immediately
-end
-
-#######################################################
-# gitlab service config
 systemd_unit 'gitlab-runner.service' do
   content <<~EOU
     [Unit]
@@ -84,6 +65,27 @@ systemd_unit 'gitlab-runner.service' do
   action [:create, :enable, :start]
 end
 
+#######################################################
+# gitlab configuration
+directory '/etc/gitlab-runner'
+
+template gitlab_config['file'] do
+  source 'gitlab-runner-config.toml.erb'
+  variables(
+    concurrent: gitlab_config['main']['concurrent'],
+    check_interval: gitlab_config['main']['check_interval'],
+    session_server_session_timeout: gitlab_config['session_server']['session_timeout'],
+    runners_name: node['hostname'],
+    runners_uri: gitlab_config['runners']['uri'],
+    runners_token: gitlab_config['runners']['token'],
+    runners_executor: gitlab_config['runners']['executor']
+  )
+
+  notifies :restart, 'systemd_unit[gitlab-runner.service]', :immediately
+end
+
+#######################################################
+# gitlab registration
 gitlab_runner = node['chef_work_environment']['gitlab_runner']['config']['runners']
 
 execute 'Register Gitlab Runner' do
