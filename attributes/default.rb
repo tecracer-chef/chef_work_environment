@@ -26,10 +26,10 @@ default['chef_work_environment']['source']['debian']['internal'] = []
 # `chef_workstation.rb`
 # Chef Workstation installation
 default['chef_work_environment']['chef_workstation']['source_path'] = nil
+default['chef_work_environment']['chef_workstation']['install_path'] = '/opt/chef-workstation'
 default['chef_work_environment']['chef_workstation']['version'] = nil
 default['chef_work_environment']['chef_workstation']['shell'] = 'bash'
 default['chef_work_environment']['chef_workstation']['chef_config']['ssl_verify'] = 'verify_none'
-# default['chef_work_environment']['chef_workstation']['repin'] = { inspec: "4.26.13" }
 
 ################################
 # `gitlab_runner.rb`
@@ -74,6 +74,10 @@ default['chef_work_environment']['packages']['use_epel'] = true
 # additional package installation
 default['chef_work_environment']['packages']['gems'] = nil
 default['chef_work_environment']['packages']['system'] = nil
+
+################################
+# `repin.rb`
+default['chef_work_environment']['repin'] = {}
 
 ################################
 # `vault.rb`

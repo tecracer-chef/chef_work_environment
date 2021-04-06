@@ -10,7 +10,7 @@ alternate_sources = node['chef_work_environment']['source']
 
 # Parameter parity between Debian/Ubuntu and other platforms
 chef_workstation_version = chef_workstation['version']
-chef_workstation_version += '-1' if debian?
+chef_workstation_version += '-1' if debian? && chef_workstation_version
 
 package 'chef-workstation' do
   source chef_workstation['source_path'] unless chef_workstation['source_path'].nil?
