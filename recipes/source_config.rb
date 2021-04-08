@@ -36,6 +36,8 @@ when 'debian'
   end
 
 when 'rhel', 'amazon', 'suse'
+  # TODO: Allow internal repos for these distributions
+
   include_recipe 'yum-epel::default' if node['chef_work_environment']['packages']['use_epel']
 
   yum_repository 'chef' do

@@ -1,7 +1,10 @@
 cookbook_path            [".", "..", "#{__dir__}/../cookbooks", "#{__dir__}/../GIT/cookbooks"]
 
 knife[:supermarket_site] = "<%= @chef_supermarket %>"
+knife[:editor]           = "vi"
 
+log_level                :info
+log_location             STDOUT
 ssl_verify_mode          :<%= @ssl_verify %>
 
 # Chef Server
