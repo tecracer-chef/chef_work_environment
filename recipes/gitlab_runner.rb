@@ -39,10 +39,35 @@ remote_file gitlab_binary['execution_path'] do
 end
 
 #######################################################
+# gitlab service config
+gitlab_config = node['chef_work_environment']['gitlab_runner']['config']
+
+systemd_unit 'gitlab-runner.service' do
+  content <<~EOU
+    [Unit]
+    Description=GitLab Runner
+    After=syslog.target network.target
+    ConditionFileIsExecutable=#{gitlab_binary['execution_path']}
+
+    [Service]
+    StartLimitInterval=5
+    StartLimitBurst=10
+    ExecStart=#{gitlab_binary['execution_path']} "run" "--working-directory" "#{gitlab_user_homedir}" "--config" "#{gitlab_config['file']}" "--service" "gitlab-runner" "--syslog" "--user" "#{gitlab_user['name']}"
+
+    Restart=always
+    RestartSec=120
+
+    [Install]
+    WantedBy=multi-user.target
+
+  EOU
+
+  action [:create, :enable, :start]
+end
+
+#######################################################
 # gitlab configuration
 directory '/etc/gitlab-runner'
-
-gitlab_config = node['chef_work_environment']['gitlab_runner']['config']
 
 template gitlab_config['file'] do
   source 'gitlab-runner-config.toml.erb'
@@ -55,29 +80,30 @@ template gitlab_config['file'] do
     runners_token: gitlab_config['runners']['token'],
     runners_executor: gitlab_config['runners']['executor']
   )
+
+  notifies :restart, 'systemd_unit[gitlab-runner.service]', :immediately
 end
 
 #######################################################
-# gitlab service config
-systemd_unit 'gitlab-runner.service' do
-  content <<~EOU
-    [Unit]
-    Description=GitLab Runner
-    After=syslog.target network.target
-    ConditionFileIsExecutable=#{gitlab_binary['execution_path']}
+# gitlab registration
+gitlab_runner = node['chef_work_environment']['gitlab_runner']['config']['runners']
 
-    [Service]
-    StartLimitInterval=5
-    StartLimitBurst=10
-    ExecStart=#{gitlab_binary['execution_path']} "run" "--working-directory" "#{gitlab_user_homedir}" "--config" "#{gitlab_binary['file']}" "--service" "gitlab-runner" "--syslog" "--user" "#{gitlab_user['name']}"
+execute 'Register Gitlab Runner' do
+  command <<~SHELL
+    gitlab-runner register \
+       --tag-list #{gitlab_runner['tags'].join(',')} \
+       --executor #{gitlab_runner['executor'] || 'shell'} \
+       --non-interactive
+  SHELL
+  environment(
+    CI_SERVER_URL: gitlab_runner['uri'],
+    REGISTRATION_TOKEN: gitlab_runner['token'],
+    REGISTER_LOCKED: false
+  )
+  sensitive true
 
-    Restart=always
-    RestartSec=120
+  not_if { gitlab_runner['uri']&.empty? || gitlab_runner['token']&.empty? }
+  not_if "gitlab-runner list 2>&1 | grep URL.*#{gitlab_runner['uri']}"
 
-    [Install]
-    WantedBy=multi-user.target
-
-  EOU
-
-  action [:create, :enable, :start]
+  notifies :reload, 'systemd_unit[gitlab-runner.service]', :immediately
 end

@@ -14,11 +14,10 @@
   end
 end
 
-# TODO: Re-enable this
 # Additional distribution packages (controlled via attributes)
-node['chef_work_environment']['packages']['from_distribution']&.each do |pkg|
-  package pkg['name'] do
-    version pkg['version']
+node['chef_work_environment']['packages']['system']&.each do |pkg_name, pkg_version|
+  package pkg_name do
+    version pkg_version
     action :install
   end
 end
@@ -26,18 +25,22 @@ end
 # Basic gems
 # TODO: Add current major version
 %w(mdl overcommit chef-raketasks).each do |gem|
-  gem_package gem do
+  chef_gem gem do
+    clear_sources true
+    include_default_source false
+    source node['chef_work_environment']['source']['gems']
     action :install
   end
 end
 
 # Additional gem packages (controlled via attributes)
-node['chef_work_environment']['packages']['gems']&.each do |gem|
-  gem_package gem['name'] do
-    version gem['version']
+node['chef_work_environment']['packages']['gems']&.each do |gem_name, gem_version|
+  chef_gem gem_name do
+    version gem_version
+
+    clear_sources true
+    include_default_source false
+    source node['chef_work_environment']['source']['gems']
     action :install
   end
 end
-
-# TODO: - vault cli: install = false
-# -> extra recipe?

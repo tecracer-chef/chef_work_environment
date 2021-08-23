@@ -1,0 +1,6 @@
+ssl_verify_mode          :<%= @ssl_verify %>
+
+# Chef Server
+node_name                ENV['CHEF_SERVER_ORG_USER']
+chef_server_url          "<%= File.join(@chef_server, 'organizations', @chef_server_org) %>"
+rubygems_url             "<%= @rubygems_host %>"

@@ -1,6 +1,6 @@
 title 'Chef Workstation'
 
-control 'Chef Workstation' do
+control 'chef_workstation' do
   title 'Check if Chef Workstation is installed and properly configured'
 
   describe package('chef-workstation') do

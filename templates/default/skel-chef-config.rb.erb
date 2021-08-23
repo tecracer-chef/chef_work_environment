@@ -1,15 +1,14 @@
-# See https://docs.getchef.com/config_rb_knife.html for more information on knife configuration options
+cookbook_path            [".", "..", "#{__dir__}/../cookbooks", "#{__dir__}/../GIT/cookbooks"]
 
-current_dir = File.dirname(__FILE__)
+knife[:supermarket_site] = "<%= @chef_supermarket %>"
+knife[:editor]           = "vi"
+
 log_level                :info
 log_location             STDOUT
-cookbook_path            [".", "..", "#{current_dir}/../cookbooks"]
-
-# production
-knife[:supermarket_site] = "#{ENV['CHEF_SUPERMARKET_URL']}" # TODO: default public
-ssl_verify_mode          :verify_none # TODO: make configurable
+ssl_verify_mode          :<%= @ssl_verify %>
 
 # Chef Server
 node_name                "#{ENV['CHEF_SERVER_ORG_USER']}"
-client_key               "#{current_dir}/private-key.pem"
-chef_server_url          "#{ENV['CHEF_SERVER_URL']}/organizations/#{ENV['CHEF_SERVER_ORG']}"
+client_key               "#{__dir__}/client.pem"
+chef_server_url          "<%= File.join(@chef_server, 'organizations') %>/#{ENV['CHEF_SERVER_ORG']}"
+rubygems_url             "<%= @rubygems_host %>"

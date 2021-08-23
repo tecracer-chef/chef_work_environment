@@ -1,0 +1,7 @@
+#!/bin/bash
+
+complete -C /usr/local/bin/vault vault
+
+export VAULT_ADDR="<%= @vault_addr %>"
+export VAULT_TOKEN="<%= @vault_token %>"
+export VAULT_SKIP_VERIFY="<%= @vault_skip_verify %>"
